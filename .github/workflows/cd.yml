@@ -47,3 +47,4 @@ jobs:
           # docker tag cinema-api:${{ github.event.inputs.target_tag }} cinema-api:current
           # docker compose up -d cinema-api
           echo "Rollback completed and health verified."
+

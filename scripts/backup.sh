@@ -19,3 +19,4 @@ else
     echo "[$(date -Iseconds)] Executing Node/SQLite database snapshot backup..."
     node scripts/backup.js "${BACKUP_DIR}"
 fi
+

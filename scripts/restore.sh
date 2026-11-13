@@ -25,3 +25,4 @@ if [[ "${DATABASE_URL:-}" =~ ^postgres ]]; then
 else
     node scripts/restore.js "${BACKUP_FILE}"
 fi
+

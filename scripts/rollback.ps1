@@ -10,3 +10,4 @@ $ErrorActionPreference = "Stop"
 Write-Host "[$(Get-Date -Format s)] Initiating application container rollback to target tag: $TargetTag..."
 
 node scripts/rollback.js
+

@@ -79,3 +79,4 @@ test('ACCEPTANCE TEST 5 (Rollback Procedure): Documented and executable applicat
   const ready = await db.ping();
   assert.equal(ready, true, 'Service readiness must be verified post-rollback');
 });
+

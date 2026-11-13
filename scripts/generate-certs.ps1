@@ -36,3 +36,4 @@ try {
 } catch {
     Write-Warning "Could not use New-SelfSignedCertificate: $($_.Exception.Message)"
 }
+

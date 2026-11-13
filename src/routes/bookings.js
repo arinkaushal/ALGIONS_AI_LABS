@@ -47,3 +47,4 @@ router.post('/bookings/:reference/cancel', async (req, res, next) => {
 });
 
 export default router;
+

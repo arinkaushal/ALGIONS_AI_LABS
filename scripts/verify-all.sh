@@ -6,3 +6,4 @@ set -euo pipefail
 
 echo "Executing Master Verification Test Suite..."
 node scripts/verify-all.js
+

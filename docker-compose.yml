@@ -116,3 +116,4 @@ volumes:
   postgres_data:
     driver: local
     name: cinema_postgres_data
+

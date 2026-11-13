@@ -143,3 +143,4 @@ jobs:
           curl -f http://127.0.0.1:3000/healthz || (docker logs test-cinema-api && exit 1)
           curl -f http://127.0.0.1:3000/readyz || (docker logs test-cinema-api && exit 1)
           docker stop test-cinema-api
+

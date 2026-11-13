@@ -103,3 +103,4 @@ if (process.argv[1]?.endsWith('rollback.js')) {
 }
 
 export default runRollback;
+

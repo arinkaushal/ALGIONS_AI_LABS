@@ -90,3 +90,4 @@ if (errorCount === 0) {
   console.error(`Static analysis FAILED with ${errorCount} error(s).`);
   process.exit(1);
 }
+

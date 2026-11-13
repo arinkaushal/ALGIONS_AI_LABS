@@ -207,3 +207,4 @@ If a release corrupted both database state and application code:
    SELECT show_id, seat_number, COUNT(*) FROM booking_seats WHERE status = 'ACTIVE' GROUP BY show_id, seat_number HAVING COUNT(*) > 1;
    ```
    Must return 0 rows.
+

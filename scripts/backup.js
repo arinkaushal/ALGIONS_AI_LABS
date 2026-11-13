@@ -86,3 +86,4 @@ if (process.argv[1]?.endsWith('backup.js')) {
 }
 
 export default runBackup;
+

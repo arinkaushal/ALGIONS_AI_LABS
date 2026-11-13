@@ -33,3 +33,4 @@ if ($env:DATABASE_URL -match "^postgres") {
 } else {
     node scripts/restore.js $BackupFile
 }
+

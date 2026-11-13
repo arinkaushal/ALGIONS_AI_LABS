@@ -24,3 +24,4 @@ if ($env:DATABASE_URL -match "^postgres") {
     Write-Host "[$(Get-Date -Format s)] Executing database snapshot backup..."
     node scripts/backup.js $BackupDir
 }
+

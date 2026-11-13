@@ -23,3 +23,4 @@ chmod 644 "${CRT_FILE}"
 echo "Certificates generated successfully:"
 echo "  Private Key: ${KEY_FILE}"
 echo "  Certificate: ${CRT_FILE}"
+

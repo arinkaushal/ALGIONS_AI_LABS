@@ -211,3 +211,4 @@ flowchart TD
     VerifyRows --> Probe["6. Health & Readiness Probe\n(/healthz & /readyz)"]
     Probe --> Operational["Service Restored Healthy (200 OK)"]
 ```
+

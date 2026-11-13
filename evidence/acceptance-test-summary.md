@@ -70,3 +70,4 @@
   - Automated Restore: Snapshot restored, checksum verified.
   - Integrity Verification: Seat `A9` confirmed reverted to pre-mutation status (`AVAILABLE`). Row count matches baseline.
   - Application Rollback: Executed automated rollback drill (`scripts/rollback.js`), verified container tag switch to `v1.0.0-stable`, re-probed `/healthz` and `/readyz` to confirm operational readiness.
+

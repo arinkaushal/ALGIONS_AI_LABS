@@ -90,3 +90,4 @@ CREATE INDEX IF NOT EXISTS idx_bookings_show_id ON bookings(show_id);
 
 -- Enforce strict single confirmed booking per seat per show at database engine level
 CREATE UNIQUE INDEX IF NOT EXISTS idx_unique_active_seat ON booking_seats(show_id, seat_number) WHERE (status = 'ACTIVE');
+

@@ -369,3 +369,4 @@ Refer to [`RUNBOOK.md`](RUNBOOK.md) for complete operator runbooks, including:
 - [x] Correlation tracing with `X-Request-ID`.
 - [x] Zero hardcoded secrets, verified via automated CI scan (`scripts/lint-check.js`).
 - [x] SHA256 checksum verification on all database backup restores.
+

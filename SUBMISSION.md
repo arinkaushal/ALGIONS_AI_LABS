@@ -79,3 +79,4 @@ Detailed evidence: ./evidence/acceptance-test-report.json
 - **Explainability**: All code, container configurations, transactional locks, and operational scripts can be explained in depth during the technical walkthrough.
 - **Zero Secrets**: No real passwords, API tokens, or private keys have been committed. Configuration templates use `.env.example`.
 - **AI Tool Attribution**: Antigravity AI Assistant was utilized for scaffolding boilerplate, test automation scripts, and documentation structure.
+

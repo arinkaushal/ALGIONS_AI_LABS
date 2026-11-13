@@ -52,3 +52,4 @@ export default {
   activeSeatHoldsGauge,
   databaseConnectedGauge
 };
+

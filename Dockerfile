@@ -61,3 +61,4 @@ HEALTHCHECK --interval=15s --timeout=3s --start-period=5s --retries=3 \
 # Signal forwarding and entrypoint
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 CMD ["node", "src/server.js"]
+
