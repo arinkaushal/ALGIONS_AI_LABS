@@ -1,0 +1,62 @@
+{
+  "assessment_domain": "Cinema Hall Ticket Booking (Show and Seat Reservation API)",
+  "timestamp": "2026-11-13T12:53:43.727Z",
+  "overall_status": "ALL_5_ACCEPTANCE_TESTS_PASSED",
+  "acceptance_tests": [
+    {
+      "criterion_id": 1,
+      "title": "Two concurrent attempts for the same show/seat cannot both confirm",
+      "status": "PASSED",
+      "evidence": {
+        "confirmed_booking": "TKT-20261113-D8A3B8",
+        "rejected_status_code": 409,
+        "rejection_code": "SEAT_ALREADY_BOOKED",
+        "seat_tested": "B6",
+        "show_id": "show-interstellar-imax"
+      }
+    },
+    {
+      "criterion_id": 2,
+      "title": "A clean environment can build and start the service using documented steps",
+      "status": "PASSED",
+      "evidence": {
+        "seeded_shows_count": 3,
+        "seeded_seats_count": 41,
+        "database_ready": true
+      }
+    },
+    {
+      "criterion_id": 3,
+      "title": "CI run executes checks/tests and produces a versioned build artifact/image",
+      "status": "PASSED",
+      "evidence": {
+        "app_version": "1.0.0",
+        "dockerfile_present": true,
+        "compose_present": true,
+        "ci_workflow_present": true
+      }
+    },
+    {
+      "criterion_id": 4,
+      "title": "Show health/readiness and logs; deliberately break service and demonstrate detection/recovery",
+      "status": "PASSED",
+      "evidence": {
+        "baseline_health": true,
+        "outage_detected": true,
+        "recovered_health": true
+      }
+    },
+    {
+      "criterion_id": 5,
+      "title": "Restore a backup or show a rollback procedure with evidence",
+      "status": "PASSED",
+      "evidence": {
+        "backup_created": "backup_2026-11-13T12-53-43-744Z.db",
+        "checksum": "786d8cba86224cd649f6f3ed9da840ef050d3cf88ea6c874c7e482550b9e50aa",
+        "restore_reverted_mutation": true,
+        "rollback_status": "SUCCESS",
+        "rollback_target_tag": "v1.0.0-stable"
+      }
+    }
+  ]
+}

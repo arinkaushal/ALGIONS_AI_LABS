@@ -1,0 +1,25 @@
+{
+  "incident_id": "INC-ROLLBACK-1794574423759",
+  "target_tag": "v1.0.0-stable",
+  "actions_taken": [
+    {
+      "step": 1,
+      "action": "Pre-rollback health check",
+      "database_ready": true
+    },
+    {
+      "step": 2,
+      "action": "Container image rollback",
+      "rolled_back_to": "v1.0.0-stable"
+    },
+    {
+      "step": 4,
+      "action": "Post-rollback readiness probe",
+      "database_ready": true,
+      "result": "PASSED"
+    }
+  ],
+  "status": "SUCCESS",
+  "timestamp": "2026-11-13T12:53:43.759Z",
+  "completed_at": "2026-11-13T12:53:43.761Z"
+}

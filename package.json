@@ -1,0 +1,43 @@
+{
+  "name": "cinema-ticket-reservation-service",
+  "version": "1.0.0",
+  "description": "Production-grade Cinema Hall Ticket Booking Show and Seat Reservation API with CI/CD, Observability, and Concurrency Controls",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test tests/**/*.test.js tests/**/*.test.mjs",
+    "test:concurrency": "node --test tests/concurrency.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage tests/**/*.test.js tests/**/*.test.mjs",
+    "lint": "node scripts/lint-check.js",
+    "certs:gen": "node scripts/generate-certs.js",
+    "db:migrate": "node src/db/migrate.js",
+    "db:seed": "node src/db/seed.js",
+    "verify:all": "node scripts/verify-all.js"
+  },
+  "keywords": [
+    "cinema-booking",
+    "devops",
+    "concurrency",
+    "observability",
+    "docker",
+    "ci-cd"
+  ],
+  "author": "Arin Kaushal <arinkaushal06@gmail.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "prom-client": "^15.1.3"
+  },
+  "devDependencies": {
+    "selfsigned": "^5.5.0",
+    "supertest": "^7.0.0"
+  }
+}

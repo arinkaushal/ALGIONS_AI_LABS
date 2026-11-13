@@ -1,0 +1,118 @@
+version: '3.8'
+
+services:
+  # ============================================================================
+  # 1. Reverse Proxy: Nginx with TLS Termination, Rate Limiting & Security Headers
+  # ============================================================================
+  reverse-proxy:
+    image: nginx:1.27-alpine
+    container_name: cinema-reverse-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./docker/nginx/certs:/etc/nginx/certs:ro
+    depends_on:
+      cinema-api:
+        condition: service_healthy
+    networks:
+      - frontend-net
+      - backend-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1/healthz || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+
+  # ============================================================================
+  # 2. Cinema Reservation Microservice: Node.js Multi-stage Non-root Container
+  # ============================================================================
+  cinema-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cinema-api:v1.0.0
+    container_name: cinema-api-service
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-cinema_user}:${POSTGRES_PASSWORD:-cinema_secure_password_2026}@postgres-db:5432/${POSTGRES_DB:-cinema_db}
+      - HOLD_DURATION_SECONDS=300
+      - LOG_LEVEL=info
+      - DB_MAX_CONNECTIONS=15
+      - DB_IDLE_TIMEOUT_MS=30000
+      - DB_CONNECTION_TIMEOUT_MS=5000
+    depends_on:
+      postgres-db:
+        condition: service_healthy
+    networks:
+      - backend-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/healthz || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+
+  # ============================================================================
+  # 3. Database: PostgreSQL 16 Alpine with Persistent Volume & Health Probes
+  # ============================================================================
+  postgres-db:
+    image: postgres:16-alpine
+    container_name: cinema-postgres-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cinema_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cinema_secure_password_2026}
+      POSTGRES_DB: ${POSTGRES_DB:-cinema_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - backend-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cinema_user} -d ${POSTGRES_DB:-cinema_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+
+# ==============================================================================
+# Dual Network Architecture: Principle of Least Privilege
+# ==============================================================================
+networks:
+  # Public entry network: Only reverse-proxy binds host ports 80/443
+  frontend-net:
+    driver: bridge
+
+  # Internal isolated network: App and database communicate privately
+  backend-net:
+    driver: bridge
+    internal: false # allows container outbound if needed, but no external ingress
+
+# ==============================================================================
+# Persistent Storage Volumes
+# ==============================================================================
+volumes:
+  postgres_data:
+    driver: local
+    name: cinema_postgres_data

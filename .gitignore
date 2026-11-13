@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Environment and secrets (CRITICAL: Never commit secrets)
+.env
+.env.local
+.env.*.local
+*.pem
+*.pfx
+*.key
+*.crt
+!docker/nginx/certs/.gitkeep
+
+# Local Database files and logs
+data/
+*.sqlite*
+logs/
+*.log
+
+# Generated Backups (keep directory structure)
+backups/*
+!backups/.gitkeep
+
+# Build & Test outputs
+coverage/
+.nyc_output/
+temp/
+
+# OS and Editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
