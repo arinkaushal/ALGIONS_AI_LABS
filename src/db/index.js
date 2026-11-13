@@ -47,6 +47,9 @@ class DatabaseManager {
   }
 
   async init(overrideUrl = null) {
+    if (this.initialized) {
+      await this.close();
+    }
     const dbUrl = overrideUrl || config.databaseUrl;
 
     if (dbUrl.startsWith('postgres://') || dbUrl.startsWith('postgresql://')) {

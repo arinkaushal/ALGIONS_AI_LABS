@@ -8,8 +8,11 @@ import { runBackup } from '../scripts/backup.js';
 import { runRestore } from '../scripts/restore.js';
 import { runRollback } from '../scripts/rollback.js';
 
+import config from '../src/config.js';
+
 test.before(async () => {
-  await db.init();
+  config.databaseUrl = 'sqlite:./data/cinema-backup.test.db';
+  await db.init('sqlite:./data/cinema-backup.test.db');
   await migrate();
   await seed();
 });

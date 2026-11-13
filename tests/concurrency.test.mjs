@@ -6,7 +6,7 @@ import seed from '../src/db/seed.js';
 import bookingService from '../src/services/bookingService.js';
 
 test.before(async () => {
-  await db.init();
+  await db.init('sqlite:./data/cinema-concurrency.test.db');
   await migrate();
   await seed();
 });

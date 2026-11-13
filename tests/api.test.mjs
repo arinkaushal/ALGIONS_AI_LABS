@@ -7,7 +7,7 @@ import bookingService from '../src/services/bookingService.js';
 import { createApp } from '../src/app.js';
 
 test.before(async () => {
-  await db.init();
+  await db.init('sqlite:./data/cinema-api.test.db');
   await migrate();
   await seed();
 });

@@ -7,9 +7,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
-    "test": "node --test tests/**/*.test.js tests/**/*.test.mjs",
+    "test": "node --test --test-concurrency=1 tests/**/*.test.mjs",
     "test:concurrency": "node --test tests/concurrency.test.mjs",
-    "test:coverage": "node --test --experimental-test-coverage tests/**/*.test.js tests/**/*.test.mjs",
+    "test:coverage": "node --test --test-concurrency=1 --experimental-test-coverage tests/**/*.test.mjs",
     "lint": "node scripts/lint-check.js",
     "certs:gen": "node scripts/generate-certs.js",
     "db:migrate": "node src/db/migrate.js",

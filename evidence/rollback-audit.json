@@ -1,5 +1,5 @@
 {
-  "incident_id": "INC-ROLLBACK-1794575055546",
+  "incident_id": "INC-ROLLBACK-1794575556476",
   "target_tag": "v1.0.0-stable",
   "actions_taken": [
     {
@@ -20,6 +20,6 @@
     }
   ],
   "status": "SUCCESS",
-  "timestamp": "2026-11-13T13:04:15.546Z",
-  "completed_at": "2026-11-13T13:04:15.548Z"
+  "timestamp": "2026-11-13T13:12:36.476Z",
+  "completed_at": "2026-11-13T13:12:36.481Z"
 }

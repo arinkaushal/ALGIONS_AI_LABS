@@ -6,7 +6,7 @@ import seed from '../src/db/seed.js';
 import logger from '../src/logger.js';
 
 test.before(async () => {
-  await db.init();
+  await db.init('sqlite:./data/cinema-chaos.test.db');
   await migrate();
   await seed();
 });
