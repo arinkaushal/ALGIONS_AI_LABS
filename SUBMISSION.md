@@ -10,7 +10,8 @@
 | **University Email** | arinkaushal06@gmail.com |
 | **Repository URL** | `https://github.com/arinkaushal/ALGIONS_AI_LABS` |
 | **Primary Branch** | `main` |
-| **Final Commit ID** | `eca5923` |
+| **Final Commit ID** | `6cdb871` (or latest commit on `main`) |
+| **Live Cloud Deployment** | Render Cloud Web Service (Gated via GitHub Actions CI/CD) |
 
 ---
 
@@ -26,8 +27,9 @@
 ### Code & Version
 - **Repository URL**: `https://github.com/arinkaushal/ALGIONS_AI_LABS`
 - **Primary Branch**: `main`
-- **Final Commit ID**: `eca5923` (or latest commit on `main`)
+- **Final Commit ID**: `6cdb871` (or latest commit on `main`)
 - **Container Image Reference**: `cinema-api:v1.0.0` / `cinema-api:latest`
+- **Cloud Deployment**: Gated continuous deployment on Render (`RENDER_DEPLOY_HOOK`) with automated rollback and healthchecks.
 
 ### Demonstration
 - **Demonstration Video**: `https://youtu.be/cinema-ticketing-devops-demo` *(Placeholder: 3–5 min technical walkthrough covering CI pipeline, deployment, observability, and chaos recovery)*
