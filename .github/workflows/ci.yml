@@ -149,3 +149,28 @@ jobs:
           docker push ${{ env.GHCR_REPO }}:latest
           docker push ${{ env.GHCR_REPO }}:${{ github.sha }}
           echo "Published new release to ${{ env.GHCR_REPO }}:latest"
+
+      # ========================================================================
+      # 5. Render Cloud Continuous Deployment Gate
+      # Triggered ONLY after all tests, scans, and smoke tests have passed
+      # ========================================================================
+      - name: Trigger Render Cloud Deployment (Continuous Delivery Gate)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          RENDER_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$RENDER_HOOK" ]; then
+            echo "All tests, security scans, and smoke checks passed!"
+            echo "Triggering automated deployment gate to Render cloud..."
+            HTTP_RESPONSE=$(curl -s -o response.txt -w "%{http_code}" -X POST "$RENDER_HOOK")
+            if [ "$HTTP_RESPONSE" -ge 200 ] && [ "$HTTP_RESPONSE" -lt 300 ]; then
+              echo "Render deployment triggered successfully (HTTP $HTTP_RESPONSE)."
+            else
+              echo "Render deploy hook returned status: $HTTP_RESPONSE"
+              cat response.txt
+              exit 1
+            fi
+          else
+            echo "RENDER_DEPLOY_HOOK secret is not configured in GitHub repository secrets."
+            echo "Skipping cloud webhook trigger. Local Docker / Watchtower workflow remains active."
+          fi
