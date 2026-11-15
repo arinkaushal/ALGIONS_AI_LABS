@@ -54,12 +54,20 @@ class DatabaseManager {
 
     if (dbUrl.startsWith('postgres://') || dbUrl.startsWith('postgresql://')) {
       this.isPg = true;
-      this.pgPool = new Pool({
+      const poolConfig = {
         connectionString: dbUrl,
         max: config.dbMaxConnections,
         idleTimeoutMillis: config.dbIdleTimeoutMillis,
         connectionTimeoutMillis: config.dbConnectionTimeoutMillis,
-      });
+      };
+
+      // Support SSL for hosted PostgreSQL providers (Render, Neon, Supabase, RDS)
+      const isLocalhost = dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1') || dbUrl.includes('postgres-db');
+      if (process.env.DATABASE_SSL === 'true' || (!isLocalhost && !dbUrl.includes('sslmode=disable'))) {
+        poolConfig.ssl = { rejectUnauthorized: false };
+      }
+
+      this.pgPool = new Pool(poolConfig);
 
       this.pgPool.on('error', (err) => {
         logger.error('Unexpected error on idle PostgreSQL client', { error: err });

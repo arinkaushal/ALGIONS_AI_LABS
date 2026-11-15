@@ -1,0 +1,23 @@
+services:
+  # Web Service: Cinema Ticket Reservation Service
+  - type: web
+    name: cinema-ticket-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: HOST
+        value: 0.0.0.0
+      - key: LOG_LEVEL
+        value: info
+      # By default, uses built-in SQLite with auto-migration and auto-seeding.
+      # To attach a managed PostgreSQL database, add Render Postgres and set DATABASE_URL
+      - key: DATABASE_URL
+        value: sqlite:./data/cinema.db
