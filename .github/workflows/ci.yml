@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: read
+  packages: write
   security-events: write
 
 jobs:
@@ -93,10 +94,10 @@ jobs:
           path: evidence/
 
   # ============================================================================
-  # 4. Container Build, Version Tagging & Smoke Healthcheck
+  # 4. Container Build, Version Tagging, Smoke Test & CD Publish
   # ============================================================================
   docker-build:
-    name: Docker Build, Trivy Scan & Healthcheck
+    name: Docker Build, Trivy Scan, Smoke Test & CD Publish
     runs-on: ubuntu-latest
     needs: [test]
     steps:
@@ -106,15 +107,9 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Extract Docker metadata & version tags
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: cinema-api
-          tags: |
-            type=sha,format=long
-            type=semver,pattern={{version}}
-            type=raw,value=latest
+      - name: Set lowercase repository name for GHCR
+        run: |
+          echo "GHCR_REPO=ghcr.io/$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')/cinema-api" >> $GITHUB_ENV
 
       - name: Build Docker image (reproducible with cache)
         uses: docker/build-push-action@v5
@@ -122,7 +117,7 @@ jobs:
           context: .
           file: ./Dockerfile
           load: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: cinema-api:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -143,4 +138,14 @@ jobs:
           curl -f http://127.0.0.1:3000/healthz || (docker logs test-cinema-api && exit 1)
           curl -f http://127.0.0.1:3000/readyz || (docker logs test-cinema-api && exit 1)
           docker stop test-cinema-api
+          docker rm test-cinema-api
 
+      - name: Publish to GitHub Container Registry (Continuous Deployment)
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          docker tag cinema-api:latest ${{ env.GHCR_REPO }}:latest
+          docker tag cinema-api:latest ${{ env.GHCR_REPO }}:${{ github.sha }}
+          docker push ${{ env.GHCR_REPO }}:latest
+          docker push ${{ env.GHCR_REPO }}:${{ github.sha }}
+          echo "Published new release to ${{ env.GHCR_REPO }}:latest"

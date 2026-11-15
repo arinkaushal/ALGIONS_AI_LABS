@@ -38,7 +38,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: cinema-api:v1.0.0
+    image: ${CINEMA_API_IMAGE:-ghcr.io/arinkaushal/algions_ai_labs/cinema-api:latest}
     container_name: cinema-api-service
     restart: unless-stopped
     environment:
@@ -96,6 +96,26 @@ services:
           cpus: '1.0'
           memory: 512M
 
+  # ============================================================================
+  # 4. Watchtower: Automated Continuous Deployment Agent (Auto-Updates App)
+  # ============================================================================
+  watchtower:
+    image: containrrr/watchtower:latest
+    container_name: cinema-watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_POLL_INTERVAL=30
+      - WATCHTOWER_INCLUDE_STOPPED=false
+    command: --interval 30 cinema-api-service
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 64M
+
 # ==============================================================================
 # Dual Network Architecture: Principle of Least Privilege
 # ==============================================================================
@@ -107,7 +127,7 @@ networks:
   # Internal isolated network: App and database communicate privately
   backend-net:
     driver: bridge
-    internal: false # allows container outbound if needed, but no external ingress
+    internal: false
 
 # ==============================================================================
 # Persistent Storage Volumes
@@ -116,4 +136,3 @@ volumes:
   postgres_data:
     driver: local
     name: cinema_postgres_data
-

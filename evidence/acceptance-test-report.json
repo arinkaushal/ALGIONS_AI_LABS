@@ -1,6 +1,6 @@
 {
   "assessment_domain": "Cinema Hall Ticket Booking (Show and Seat Reservation API)",
-  "timestamp": "2026-11-13T13:12:36.430Z",
+  "timestamp": "2026-11-15T13:53:30.604Z",
   "overall_status": "ALL_5_ACCEPTANCE_TESTS_PASSED",
   "acceptance_tests": [
     {
@@ -8,7 +8,7 @@
       "title": "Two concurrent attempts for the same show/seat cannot both confirm",
       "status": "PASSED",
       "evidence": {
-        "confirmed_booking": "TKT-20261113-AAC7EC",
+        "confirmed_booking": "TKT-20261115-FB60F5",
         "rejected_status_code": 409,
         "rejection_code": "SEAT_ALREADY_BOOKED",
         "seat_tested": "B6",
@@ -51,8 +51,8 @@
       "title": "Restore a backup or show a rollback procedure with evidence",
       "status": "PASSED",
       "evidence": {
-        "backup_created": "backup_2026-11-13T13-12-36-451Z.db",
-        "checksum": "79239554b0b98a063803b8572ced89284c6cc7863be24c8fa52ce208e0d3b86f",
+        "backup_created": "backup_2026-11-15T13-53-30-645Z.db",
+        "checksum": "ebb9819c8aabd52d60a6084268d5421af8a1f10da4213986a83fe72111402a15",
         "restore_reverted_mutation": true,
         "rollback_status": "SUCCESS",
         "rollback_target_tag": "v1.0.0-stable"
