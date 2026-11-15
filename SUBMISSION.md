@@ -6,8 +6,11 @@
 | **Assigned Project Title** | Cloud Deployment & CI/CD – Cinema Ticketing Platform |
 | **Allocated Service Scope** | Show and Seat Reservation API (Domain: Cinema Hall Ticket Booking) |
 | **Candidate Name** | Arin Kaushal |
+| **Registration Number** | [Enter Registration Number] |
 | **University Email** | arinkaushal06@gmail.com |
+| **Repository URL** | `https://github.com/arinkaushal/ALGIONS_AI_LABS` |
 | **Primary Branch** | `main` |
+| **Final Commit ID** | `eca5923` |
 
 ---
 
@@ -15,13 +18,15 @@
 
 ### Candidate Identification & Assignment Confirmation
 - **Full Name**: Arin Kaushal
+- **Registration Number**: [Enter Registration Number]
 - **Email**: arinkaushal06@gmail.com
 - **Role**: DevOps & Cloud Engineering
 - **Project**: Cloud Deployment & CI/CD – Cinema Ticketing Platform
 
 ### Code & Version
-- **Repository URL**: `https://github.com/arinkaushal/cinema-ticket-reservation-service`
+- **Repository URL**: `https://github.com/arinkaushal/ALGIONS_AI_LABS`
 - **Primary Branch**: `main`
+- **Final Commit ID**: `eca5923` (or latest commit on `main`)
 - **Container Image Reference**: `cinema-api:v1.0.0` / `cinema-api:latest`
 
 ### Demonstration
