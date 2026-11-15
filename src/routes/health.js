@@ -39,26 +39,21 @@ router.get('/', (req, res) => {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cinema Ticket Reservation Service</title>
   <style>
-    :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --border: #334155;
-      --text: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #38bdf8;
-      --success: #22c55e;
-      --accent: #818cf8;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Calibri, 'Segoe UI', Candara, sans-serif !important;
+      font-weight: normal !important;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
+      background-color: #ffffff;
+      color: #000000;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 2.5rem 1rem;
+      padding: 3rem 1.5rem;
     }
     .container {
       max-width: 900px;
@@ -66,145 +61,150 @@ router.get('/', (req, res) => {
     }
     .header {
       text-align: center;
-      margin-bottom: 2.5rem;
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(34, 197, 94, 0.15);
-      color: var(--success);
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-    .badge::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 10px var(--success);
+      margin-bottom: 2rem;
     }
     h1 {
-      font-size: 2.25rem;
-      font-weight: 800;
-      letter-spacing: -0.025em;
-      margin-bottom: 0.75rem;
-      background: linear-gradient(to right, #38bdf8, #818cf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size: 2.2rem;
+      color: #000000;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
     }
     p.subtitle {
-      color: var(--text-muted);
-      font-size: 1.1rem;
+      color: #000000;
+      font-size: 1.05rem;
       max-width: 650px;
       margin: 0 auto;
-      line-height: 1.6;
+      line-height: 1.5;
     }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 1.25rem;
+      margin-top: 2rem;
       margin-bottom: 2.5rem;
     }
     .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      background-color: #ffffff;
+      border: 1px solid #000000;
+      color: #000000;
       padding: 1.5rem;
-      transition: transform 0.2s, border-color 0.2s;
       text-decoration: none;
-      color: inherit;
       display: flex;
       flex-direction: column;
+      transition: background-color 0.15s ease, color 0.15s ease;
     }
     .card:hover {
-      transform: translateY(-3px);
-      border-color: var(--primary);
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .card:hover .card-title,
+    .card:hover .card-desc,
+    .card:hover .card-path {
+      color: #ffffff;
+    }
+    .card:hover svg {
+      stroke: #ffffff;
+    }
+    .card:hover .card-path {
+      border-color: #ffffff;
     }
     .card-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--primary);
+      font-size: 1.15rem;
+      color: #000000;
       margin-bottom: 0.5rem;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
+    .card-title svg {
+      flex-shrink: 0;
+      stroke: #000000;
+    }
     .card-path {
-      font-family: monospace;
       font-size: 0.85rem;
-      background: rgba(0,0,0,0.3);
-      padding: 0.2rem 0.5rem;
-      border-radius: 4px;
-      color: #cbd5e1;
+      color: #000000;
+      border: 1px solid #000000;
+      padding: 0.15rem 0.5rem;
       margin-bottom: 0.75rem;
       display: inline-block;
       align-self: flex-start;
     }
     .card-desc {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.5;
+      color: #000000;
+      font-size: 0.95rem;
+      line-height: 1.4;
     }
     .footer {
       text-align: center;
       padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.875rem;
+      border-top: 1px solid #000000;
+      color: #000000;
+      font-size: 0.9rem;
     }
     .footer a {
-      color: var(--primary);
-      text-decoration: none;
+      color: #000000;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="header">
-      <div class="badge">SYSTEM ONLINE & READY</div>
       <h1>Cinema Ticket Reservation Service</h1>
       <p class="subtitle">High-concurrency microservice with automated seat holds, atomic locking, Prometheus metrics, and cloud CI/CD.</p>
     </div>
 
     <div class="grid">
       <a href="/api/v1/shows" class="card" target="_blank">
-        <div class="card-title">🎬 Movie Shows</div>
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+          Movie Shows
+        </div>
         <div class="card-path">GET /api/v1/shows</div>
         <div class="card-desc">Lists all active cinema showtimes with screen specs, audio formats, and base pricing.</div>
       </a>
 
       <a href="/api/v1/shows/show-interstellar-imax/seats" class="card" target="_blank">
-        <div class="card-title">💺 Seat Matrix</div>
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13v-3a5 5 0 0 1 10 0v3"/><path d="M5 13h14v6H5z"/><path d="M5 19v2"/><path d="M19 19v2"/><path d="M2 13v3"/><path d="M22 13v3"/></svg>
+          Seat Matrix
+        </div>
         <div class="card-path">GET /api/v1/shows/:id/seats</div>
         <div class="card-desc">Real-time seat layout showing AVAILABLE, HELD, and BOOKED statuses with tier multipliers.</div>
       </a>
 
       <a href="/healthz" class="card" target="_blank">
-        <div class="card-title">💓 Liveness Probe</div>
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Liveness Probe
+        </div>
         <div class="card-path">GET /healthz</div>
         <div class="card-desc">Kubernetes/Docker liveness probe returning uptime, service version, and process health.</div>
       </a>
 
       <a href="/readyz" class="card" target="_blank">
-        <div class="card-title">⚡ Readiness Probe</div>
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          Readiness Probe
+        </div>
         <div class="card-path">GET /readyz</div>
         <div class="card-desc">Verifies live database connectivity (PostgreSQL / SQLite) before accepting user traffic.</div>
       </a>
 
       <a href="/metrics" class="card" target="_blank">
-        <div class="card-title">📊 Prometheus Metrics</div>
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+          Prometheus Metrics
+        </div>
         <div class="card-path">GET /metrics</div>
         <div class="card-desc">Observability metrics: HTTP latency histograms, booking counters, seat hold gauges.</div>
       </a>
 
       <a href="https://github.com/arinkaushal/ALGIONS_AI_LABS" class="card" target="_blank">
-        <div class="card-title">📦 Source Repository</div>
+        <div class="card-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          Source Repository
+        </div>
         <div class="card-path">GitHub</div>
         <div class="card-desc">CI/CD pipelines, Docker containerization, Runbooks, and verification test suites.</div>
       </a>
